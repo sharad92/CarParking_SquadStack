@@ -39,7 +39,15 @@ Detailed below are the steps required to set up and run the project.
 * [Java Installation](https://docs.oracle.com/javase/8/docs/technotes/guides/install/mac_jdk.html)
 * [Maven Installation](https://www.journaldev.com/2348/install-maven-mac-os)
 
+### **Build Step**
+* In a CMD / Terminal change to the project directory
+* In the project directory run the following command
+```
+mvn clean install
+```
+
 ### **Execution From Command Prompt**
+* Change to the "target" directory inside project directory and run the following command
 ```
 java -jar CarParking_SquadStack-1.0-SNAPSHOT-shaded.jar { PATH_TO_INPUTFILE }
 ```
