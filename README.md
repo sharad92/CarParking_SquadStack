@@ -19,8 +19,33 @@ Certain query operation are also to be provided by the system that allow for mon
 * Parking slot allocated to a vehicle to be provided given the age of the driver.
 
 ## **Getting Started**
+Detailed below are the steps required to set up and run the project.
+
+### **Dependencies**
+```
+* Java 8
+* Maven
+```
+
+### **Dependency Installation on Windows**
+* [Java Installation](https://docs.oracle.com/javase/10/install/installation-jdk-and-jre-microsoft-windows-platforms.htm#JSJIG-GUID-DAF345BA-B3E7-4CF2-B87A-B6662D691840)
+* [Maven Installation](https://mkyong.com/maven/how-to-install-maven-in-windows/)
+
+### **Dependency Installation on Unix**
+* [Java Installation](https://docs.oracle.com/javase/10/install/installation-jdk-and-jre-linux-platforms.htm#JSJIG-GUID-4907E1A6-7B4B-4E98-9DA5-BF2A4D01AA57)
+* [Maven Installation](https://www.journaldev.com/33588/install-maven-linux-ubuntu)
+
+### **Dependency Installation on Mac**
+* [Java Installation](https://docs.oracle.com/javase/8/docs/technotes/guides/install/mac_jdk.html)
+* [Maven Installation](https://www.journaldev.com/2348/install-maven-mac-os)
+
+### **Execution From Command Prompt**
+```
+java -jar CarParking_SquadStack-1.0-SNAPSHOT-shaded.jar { PATH_TO_INPUTFILE }
+```
 
 ## **Sample Inputs & Output**
+```
 * Create_parking_lot 6 <br />
 > Created parking of 6 slots
 
@@ -48,3 +73,4 @@ the driver of the car was of age 21
 
 * Vehicle_registration_number_for_driver_of_age 18 <br />
 > null
+```
