@@ -6,25 +6,50 @@
 
     <groupId>com.automatedparking</groupId>
     <artifactId>CarParking_SquadStack</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version><packaging>jar</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <dizitart.version>3.3.0</dizitart.version>
+        <apache.logging.log4j.version>2.14.0</apache.logging.log4j.version>
+        <junit.jupiter.version>5.7.0</junit.jupiter.version>
+        <junit.platform.version>1.7.0</junit.platform.version>
+    </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.dizitart</groupId>
             <artifactId>nitrite</artifactId>
-            <version>3.3.0</version>
+            <version>${dizitart.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.14.0</version>
+            <version>${apache.logging.log4j.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>2.14.0</version>
+            <version>${apache.logging.log4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-runner</artifactId>
+            <version>${junit.platform.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -50,12 +75,11 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+            </plugin>
         </plugins>
     </build>
-
-
-    <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
 </project>

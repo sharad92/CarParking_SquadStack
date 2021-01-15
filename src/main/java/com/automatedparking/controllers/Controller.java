@@ -4,10 +4,8 @@ import com.automatedparking.abstracts.DBOperations;
 import com.automatedparking.parsers.OperationTypeParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import sun.reflect.annotation.ExceptionProxy;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -42,11 +40,10 @@ public class Controller {
                 System.out.println("Invalid command present in input file, correct the file and try again.");
                 logger.error("Execution failed due to invalid command in input file, " +
                         "possible corruption of future commands hence terminating : {}", excp.getMessage());
+            } finally {
+                //Close DB
+                DBOperations.close();
             }
-
-            //Close DB
-            DBOperations.close();
         }
-
     }
 }
