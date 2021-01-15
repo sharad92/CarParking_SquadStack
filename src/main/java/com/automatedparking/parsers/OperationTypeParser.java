@@ -37,7 +37,7 @@ public class OperationTypeParser {
         Operations operationType = Operations
                 .valueOf(operationString.substring(0, operationString.indexOf(" ")));
 
-        Operation op = null;
+        Operation op;
         switch (operationType) {
             case Create_parking_lot: {
                 op = new CreateParking();
@@ -72,7 +72,7 @@ public class OperationTypeParser {
             default: {
                 System.out.println("Invalid command : " + operationString
                         .substring(0, operationString.indexOf(" ")));
-                break;
+                throw new IllegalArgumentException("Invalid command provided");
             }
         }
 
