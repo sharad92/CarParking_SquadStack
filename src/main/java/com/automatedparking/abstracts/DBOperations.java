@@ -30,7 +30,7 @@ public class DBOperations {
     /**
      * Creates a DB instance and initializes an Object repository to store structure data.
      */
-    public static void createDB() {
+    public static boolean createDB() {
         logger.debug("DB creation in progress.");
 
         try {
@@ -47,7 +47,10 @@ public class DBOperations {
             repository = db.getRepository("slot", Parking.class);
         } catch (Exception excp) {
             logger.error("Db creation failed with error : {}", excp.getMessage());
+            throw excp;
         }
+
+        return true;
     }
 
     /**
@@ -58,6 +61,7 @@ public class DBOperations {
 
         try {
             db.close();
+            db = null;
             repository = null;
             queueList = null;
 
@@ -67,6 +71,7 @@ public class DBOperations {
                 file.delete();
         } catch (Exception excp) {
             logger.error("Db close operation failed with error : {}", excp.getMessage());
+            throw new IllegalArgumentException("Invalid attempt to clean up DB.");
         }
     }
 
@@ -76,16 +81,12 @@ public class DBOperations {
     private void calculateNextSlot() {
         logger.debug("Calculating next slot open for assignment.");
 
-        try {
-            previousSlot = currentSlot;
-            for (int i = 0; i < queueList.length; i++) {
-                if (queueList[i] == 0) {
-                    currentSlot = i + 1;
-                    break;
-                }
+        previousSlot = currentSlot;
+        for (int i = 0; i < queueList.length; i++) {
+            if (queueList[i] == 0) {
+                currentSlot = i + 1;
+                break;
             }
-        } catch (Exception excp) {
-            logger.error("Slot calculation failed with error : {}", excp.getMessage());
         }
     }
 
@@ -126,6 +127,10 @@ public class DBOperations {
             calculateNextSlot();
         } catch (Exception excp) {
             logger.error("Slot assignment failed with error : {}", excp.getMessage());
+            if(excp instanceof IllegalArgumentException)
+                throw new IllegalArgumentException("Invalid arguments provided");
+            else
+                throw new IllegalArgumentException("Slot already in use, cannot reassign while taken.");
         }
 
         return (previousSlot);
@@ -143,6 +148,9 @@ public class DBOperations {
 
         try {
             Cursor<Parking> cursor = repository.find(ObjectFilters.eq("slot", slot));
+            if(cursor.size() == 0)
+                System.out.println("No vehicle parked at slot : " + slot);
+
             for (Parking vehicle : cursor) {
                 parkingVacated.add(vehicle);
             }
@@ -152,6 +160,10 @@ public class DBOperations {
             calculateNextSlot();
         } catch (Exception excp) {
             logger.error("Slot vacation failed with error : {}", excp.getMessage());
+            if(excp instanceof IllegalArgumentException)
+                throw new IllegalArgumentException("Invalid arguments provided.");
+            else
+                throw new RuntimeException("Processing error encountered, please call support.");
         }
 
         return parkingVacated;
